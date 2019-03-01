@@ -1,0 +1,4 @@
+
+enum Screen{
+  NONE,CURRENCY_LIST,SETTINGS
+}
