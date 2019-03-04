@@ -12,6 +12,5 @@ class UpdateCurrentCurrencyAction{
 }
 
 class GetCurrenciesFroShowingAction{
-  final List<ShowCurrencyPair> currenciesForShowing;
-  GetCurrenciesFroShowingAction(this.currenciesForShowing);
+  GetCurrenciesFroShowingAction();
 }

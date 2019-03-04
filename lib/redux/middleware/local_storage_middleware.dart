@@ -59,7 +59,8 @@ class LocalStorageMiddleware extends MiddlewareClass<AppState>{
             store.dispatch(new UpdateCurrenciesForShowingList(showCurrency));
           });
         }else{
-          List<ShowCurrencyPair> items = ShowList.fromJsonMap(json.decode(preferences.get(ITEMS_FOR_SHOWING))).showList;
+          String jsonString = preferences.get(ITEMS_FOR_SHOWING);
+          List<ShowCurrencyPair> items = ShowList.fromJsonMap(json.decode(jsonString)).showList;
           store.dispatch(new UpdateCurrenciesForShowingList(items));
         }
       });
@@ -73,7 +74,7 @@ class LocalStorageMiddleware extends MiddlewareClass<AppState>{
         }
       });
       SharedPreferences.getInstance().then((preferences){
-        preferences.setString(ITEMS_FOR_SHOWING, json.encode(ShowList(showCurrency).toJson()));
+        preferences.setString(ITEMS_FOR_SHOWING, json.encode(ShowList(action.currenciesForShowing).toJson()));
         preferences.setStringList(CRYPTOS_LIST, list);
       });
     }

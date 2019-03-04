@@ -2,6 +2,7 @@
 import 'package:crypto_exchange/data/currencies.dart';
 import 'package:crypto_exchange/data/show_currency_pair.dart';
 import 'package:crypto_exchange/redux/app_state.dart';
+import 'package:crypto_exchange/redux/settings/settings_actions.dart';
 import 'package:crypto_exchange/ui/settings/settings_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -16,6 +17,9 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: StoreConnector<AppState, SettingsViewModel>(
+        onInit: (store){
+          store.dispatch(new GetCurrenciesFroShowingAction());
+        },
         converter: (store) => SettingsViewModel.fromStore(store),
         builder: (_, viewModel) => Container(
           child: Column(
