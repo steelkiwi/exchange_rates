@@ -1,11 +1,14 @@
 import 'package:crypto_exchange/data/currencies.dart';
+import 'package:crypto_exchange/data/show_currency_pair.dart';
 import 'package:crypto_exchange/redux/app_state.dart';
 import 'package:crypto_exchange/redux/currency_list/currency_list_actions.dart';
+import 'package:crypto_exchange/redux/settings/settings_actions.dart';
 import 'package:crypto_exchange/utils/constants.dart';
 import 'package:crypto_exchange/utils/strings.dart';
 import 'package:redux/redux.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class LocalStorageMiddleware extends MiddlewareClass<AppState>{
 
@@ -27,7 +30,12 @@ class LocalStorageMiddleware extends MiddlewareClass<AppState>{
           store.dispatch(new GetCryptoCurrenciesListAction());
         }
       });
+    }
 
+    if(action is UpdateCurrentCurrencyAction){
+      SharedPreferences.getInstance().then((preferences){
+        preferences.setString(CURRENT_CURRENCY, action.currency);
+      });
     }
     
     if(action is GetCryptoCurrenciesListAction){
@@ -41,6 +49,32 @@ class LocalStorageMiddleware extends MiddlewareClass<AppState>{
           store.dispatch(new SetCryptoCurrenciesListAction(list));
           store.dispatch(new SetLocalDataReadyAction(true));
         }
+      });
+    }
+
+    if(action is GetCurrenciesFroShowingAction){
+      SharedPreferences.getInstance().then((preferences){
+        if(preferences.get(ITEMS_FOR_SHOWING) == null){
+          preferences.setString(ITEMS_FOR_SHOWING, json.encode(ShowList(showCurrency).toJson())).then((v){
+            store.dispatch(new UpdateCurrenciesForShowingList(showCurrency));
+          });
+        }else{
+          List<ShowCurrencyPair> items = ShowList.fromJsonMap(json.decode(preferences.get(ITEMS_FOR_SHOWING))).showList;
+          store.dispatch(new UpdateCurrenciesForShowingList(items));
+        }
+      });
+    }
+
+    if(action is UpdateCurrenciesForShowingList){
+      var list = List<String>();
+      action.currenciesForShowing.forEach((pair){
+        if(pair.show){
+          list.add(pair.currency);
+        }
+      });
+      SharedPreferences.getInstance().then((preferences){
+        preferences.setString(ITEMS_FOR_SHOWING, json.encode(ShowList(showCurrency).toJson()));
+        preferences.setStringList(CRYPTOS_LIST, list);
       });
     }
   }

@@ -20,3 +20,6 @@ class HideBackendErrorAction{
 
 class NavigateBackAction{
 }
+
+class NavigateToSettingsAction{
+}

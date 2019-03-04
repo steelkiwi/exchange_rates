@@ -1,5 +1,6 @@
 import 'package:crypto_exchange/redux/app_state.dart';
 import 'package:crypto_exchange/redux/middleware/local_storage_middleware.dart';
+import 'package:crypto_exchange/redux/middleware/navigation_middleware.dart';
 import 'package:crypto_exchange/redux/middleware/rest_middleware.dart';
 import 'package:crypto_exchange/utils/rest_client.dart';
 import 'package:redux/redux.dart';
@@ -18,6 +19,7 @@ Future<Store<AppState>> createStore() async {
       LoggingMiddleware.printer(),
       LocalStorageMiddleware(),
       RestMiddleware(prefs,restClient),
+      NavigationMiddleware(),
     ],
   );
 }

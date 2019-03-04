@@ -1,5 +1,5 @@
 
-
+import 'package:crypto_exchange/data/show_currency_pair.dart';
 import 'package:crypto_exchange/utils/strings.dart';
 
 const currency_images = {
@@ -27,6 +27,17 @@ const currency_names = {
   "USD":"US Dollar",
   "EUR":"Euro"
 };
+
+var showCurrency= [
+  ShowCurrencyPair("BTC",true),
+  ShowCurrencyPair("BCC",true),
+  ShowCurrencyPair("ETH",true),
+  ShowCurrencyPair("DASH",true),
+  ShowCurrencyPair("GBYTE",true),
+  ShowCurrencyPair("VERI",true),
+  ShowCurrencyPair("XMR",true),
+  ShowCurrencyPair("ZEC",true),
+];
 
 const default_cryptos = [
   btc, eth, bcc, dash, gbyte, veri, xmr, zec,

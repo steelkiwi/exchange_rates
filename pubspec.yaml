@@ -23,6 +23,7 @@ dependencies:
   intl: ^0.15.7
   connectivity: ^0.3.2
   pull_to_refresh: ^1.1.6
+  progress_indicators: ^0.1.2
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -54,6 +55,8 @@ flutter:
    - assets/images/xmr.png
    - assets/images/zec.png
    - assets/images/settings.png
+   - assets/images/dollar_symbol.png
+   - assets/images/euro.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

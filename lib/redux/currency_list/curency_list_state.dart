@@ -11,6 +11,7 @@ class CurrencyListState{
   final LoadingStatus loadingStatus;
   final String backendError;
   final bool localDataReady;
+  final bool reload;
 
   CurrencyListState({
     this.currency,
@@ -19,6 +20,7 @@ class CurrencyListState{
     this.loadingStatus,
     this.backendError,
     this.localDataReady,
+    this.reload,
   });
 
   factory CurrencyListState.initial() => CurrencyListState(
@@ -28,6 +30,7 @@ class CurrencyListState{
     loadingStatus: LoadingStatus.success,
     backendError: "",
     localDataReady: false,
+    reload: false,
   );
 
   CurrencyListState copyWith({
@@ -37,6 +40,7 @@ class CurrencyListState{
     List<ExchangeRate> rates,
     String backendError,
     bool localDataReady,
+    bool reload,
   }) => CurrencyListState(
     loadingStatus: status ?? this.loadingStatus,
     currency: currency ?? this.currency,
@@ -44,5 +48,6 @@ class CurrencyListState{
     rates: rates ?? this.rates,
     backendError: backendError ?? this.backendError,
     localDataReady: localDataReady ?? this.localDataReady,
+    reload: reload ?? this.reload,
   );
 }

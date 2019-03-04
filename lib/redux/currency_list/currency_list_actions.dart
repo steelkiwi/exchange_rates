@@ -36,3 +36,8 @@ class SetCurrentCurrencyAction{
   String currency;
   SetCurrentCurrencyAction(this.currency);
 }
+
+class ReloadCurrenciesAction{
+  bool reload;
+  ReloadCurrenciesAction(this.reload);
+}

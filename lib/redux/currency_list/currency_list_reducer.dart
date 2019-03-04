@@ -13,6 +13,8 @@ final currencyListReducer = combineReducers<CurrencyListState>([
   TypedReducer<CurrencyListState, SetCryptoCurrenciesListAction>(_setCryptoCurrencies),
   TypedReducer<CurrencyListState, SetCurrentCurrencyAction>(_setCurrency),
   TypedReducer<CurrencyListState, SetLocalDataReadyAction>(_localDataReady),
+  TypedReducer<CurrencyListState, ReloadCurrenciesAction>(_reload),
+
 ]);
 
 CurrencyListState _backendErrorAction(CurrencyListState state, ShowBackendErrorAction action) {
@@ -58,3 +60,6 @@ CurrencyListState _setCryptoCurrencies(CurrencyListState state, SetCryptoCurrenc
 
 CurrencyListState _localDataReady(CurrencyListState state, SetLocalDataReadyAction action) =>
     state.copyWith(localDataReady: action.localDataReady);
+
+CurrencyListState _reload(CurrencyListState state, ReloadCurrenciesAction action) =>
+    state.copyWith(reload: action.reload);

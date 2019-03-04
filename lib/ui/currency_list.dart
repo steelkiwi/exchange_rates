@@ -1,13 +1,17 @@
 
+import 'dart:math';
+
 import 'package:crypto_exchange/data/currencies.dart';
 import 'package:crypto_exchange/data/loading_status.dart';
 import 'package:crypto_exchange/redux/app_state.dart';
 import 'package:crypto_exchange/redux/currency_list/currency_list_actions.dart';
 import 'package:crypto_exchange/ui/currency_list_viewmodel.dart';
+import 'package:crypto_exchange/ui/settings/settings_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'dart:async';
+import 'package:progress_indicators/progress_indicators.dart';
 
 class CurrencyList extends StatefulWidget {
   @override
@@ -29,6 +33,10 @@ class _CurrencyListState extends State<CurrencyList> {
           if(viewModel.localDataReady && viewModel.loadingStatus != LoadingStatus.loading){
             viewModel.toggleLocalDataReady(false);
             viewModel.requestRates(true,viewModel.cryptos,viewModel.currency);
+          }
+          if(viewModel.reload){
+            viewModel.setReload(false);
+            viewModel.restart();
           }
         },
         converter: (store) => CurrencyListViewModel.fromStore(store),
@@ -107,8 +115,14 @@ class _CurrencyListState extends State<CurrencyList> {
             )
           ],
         ),
-      ):Center(
-        child: Text("Loading"),
+      ): Center(
+        child: HeartbeatProgressIndicator(child: Container(
+          height: 40.0,
+          width: 40.0,
+          decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage(currency_images[default_cryptos[Random().nextInt(default_cryptos.length-1)]]))
+          ),
+        )),
       );
 
   Widget header(CurrencyListViewModel viewModel) =>Container(
@@ -132,7 +146,7 @@ class _CurrencyListState extends State<CurrencyList> {
           top: 0.0,
           child: GestureDetector(
             onTap: (){
-
+              viewModel.navigateToSettings();
             },
             child: Padding(
               padding: const EdgeInsets.only(top:12.0, bottom: 12.0),
@@ -143,4 +157,10 @@ class _CurrencyListState extends State<CurrencyList> {
       ],
     ),
   );
+
+  @override
+  void dispose() {
+    _refreshController = null;
+    super.dispose();
+  }
 }

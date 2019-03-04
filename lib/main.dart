@@ -1,6 +1,8 @@
 import 'package:crypto_exchange/redux/app_state.dart';
 import 'package:crypto_exchange/redux/store.dart';
 import 'package:crypto_exchange/ui/currency_list.dart';
+import 'package:crypto_exchange/ui/settings/settings.dart';
+import 'package:crypto_exchange/utils/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:redux/redux.dart';
@@ -36,7 +38,11 @@ class _CryptoExchangeAppState extends State<CryptoExchangeApp> {
           // ignore: strong_mode_invalid_cast_new_expr
         ),
         debugShowCheckedModeBanner: false,
+        navigatorKey: Keys.navKey,
         home: new CurrencyList(),
+          routes:  <String, WidgetBuilder>{
+            "/settings": (BuildContext context) => new Settings(),
+          }
       ),
     );
   }
