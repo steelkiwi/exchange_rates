@@ -11,12 +11,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 class RestMiddleware extends MiddlewareClass<AppState> {
-  SharedPreferences _pref;
   RestClient _client;
   CryptoRepository _repository;
-  //repository
 
-  RestMiddleware(this._pref, this._client) {
+  RestMiddleware(this._client) {
     _repository = new CryptoRepository(_client);
   }
 
@@ -25,19 +23,23 @@ class RestMiddleware extends MiddlewareClass<AppState> {
     next(action);
     if(action is FetchCryptoListAction){
       if (action.showLoading) {
-        store.dispatch(new ChangeLoadingStatusAction(LoadingStatus.loading, Screen.CURRENCY_LIST));
+        store.dispatch(new ChangeLoadingStatusAction(LoadingStatus.loading,
+            Screen.CURRENCY_LIST));
       }
       _repository.getRates(action.cryptos, action.currency,
         success: (rate){
           print(rate.toString());
           store.dispatch(new SetRatesAction(rate));
-          store.dispatch(new ChangeLoadingStatusAction(LoadingStatus.success, Screen.CURRENCY_LIST));
+          store.dispatch(new ChangeLoadingStatusAction(LoadingStatus.success,
+              Screen.CURRENCY_LIST));
         },
           error: (error){
             store.dispatch(
-                new ChangeLoadingStatusAction(LoadingStatus.error, Screen.CURRENCY_LIST));
+                new ChangeLoadingStatusAction(LoadingStatus.error,
+                    Screen.CURRENCY_LIST));
             store.dispatch(
-                new ShowBackendErrorAction(error.errorMessage, Screen.CURRENCY_LIST));
+                new ShowBackendErrorAction(error.errorMessage,
+                    Screen.CURRENCY_LIST));
           }
       );
     }

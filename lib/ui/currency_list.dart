@@ -68,48 +68,8 @@ class _CurrencyListState extends State<CurrencyList> {
                 },
                 child: ListView.builder(
                     itemCount: viewModel.rates.length,
-                    itemBuilder: (BuildContext context, int position) => Container(
-                      height: 80.0,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: Image(image: AssetImage(currency_images[viewModel.rates[position].cryptoCurrency]),),
-                          ),
-                          Expanded(
-                            child: Padding(padding: EdgeInsets.only(left: 16.0,right: 16.0,top: 16.0, bottom: 16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  new Text(currency_names[viewModel.rates[position].cryptoCurrency],
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 4.0),
-                                    child: new Text(viewModel.rates[position].cryptoCurrency,
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        color: Colors.black
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(padding: EdgeInsets.only(right: 16.0),
-                            child: Text('${viewModel.rates[position].rate.rate} ${viewModel.rates[position].rate.currency}',
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    itemBuilder: (BuildContext context, int position) =>
+                        item(viewModel, position),
                 ),
               ),
             )
@@ -120,10 +80,56 @@ class _CurrencyListState extends State<CurrencyList> {
           height: 40.0,
           width: 40.0,
           decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage(currency_images[default_cryptos[Random().nextInt(default_cryptos.length-1)]]))
+              image: DecorationImage(image: AssetImage(
+                  currency_images[default_cryptos[
+                    Random().nextInt(default_cryptos.length-1)]]))
           ),
         )),
       );
+
+
+  Widget item(CurrencyListViewModel viewModel, int position) => Container(
+    height: 80.0,
+    child: Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: Image(image: AssetImage(currency_images[viewModel.rates[position].cryptoCurrency]),),
+        ),
+        Expanded(
+          child: Padding(padding: EdgeInsets.only(left: 16.0,right: 16.0,top: 16.0, bottom: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Text(currency_names[viewModel.rates[position].cryptoCurrency],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17.0,
+                    color: Colors.black,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: new Text(viewModel.rates[position].cryptoCurrency,
+                    style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.black
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        Padding(padding: EdgeInsets.only(right: 16.0),
+          child: Text('${viewModel.rates[position].rate.rate} ${viewModel.rates[position].rate.currency}',
+          ),
+        )
+      ],
+    ),
+  );
 
   Widget header(CurrencyListViewModel viewModel) =>Container(
     height: 48.0,

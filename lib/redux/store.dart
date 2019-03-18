@@ -18,7 +18,7 @@ Future<Store<AppState>> createStore() async {
     middleware: [
       LoggingMiddleware.printer(),
       LocalStorageMiddleware(),
-      RestMiddleware(prefs,restClient),
+      RestMiddleware(restClient),
       NavigationMiddleware(),
     ],
   );

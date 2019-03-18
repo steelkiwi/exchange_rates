@@ -37,7 +37,8 @@ class SettingsViewModel{
       store.dispatch(new SetCurrentCurrencyAction(currency));
       store.dispatch(new UpdateCurrentCurrencyAction(currency));
     },
-    updateListForShow:  (dict) => store.dispatch(new UpdateCurrenciesForShowingList(dict)),
+    updateListForShow:  (dict) =>
+        store.dispatch(new UpdateCurrenciesForShowingList(dict)),
     close: (){
       store.dispatch(new ReloadCurrenciesAction(true));
       store.dispatch(new NavigateBackAction());

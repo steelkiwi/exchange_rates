@@ -34,6 +34,7 @@ class SettingsState{
     currencyList: currencyList ?? this.currencyList,
     allCryptoCurrencies: allCryptoCurrencies ?? this.allCryptoCurrencies,
     mainCurrency: mainCurrency ?? this.mainCurrency,
-    cryptoCurrenciesForShowing: cryptoCurrenciesForShowing ?? this.cryptoCurrenciesForShowing,
+    cryptoCurrenciesForShowing: cryptoCurrenciesForShowing ??
+        this.cryptoCurrenciesForShowing,
   );
 }

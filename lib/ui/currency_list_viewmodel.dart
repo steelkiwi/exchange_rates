@@ -6,7 +6,6 @@ import 'package:crypto_exchange/redux/currency_list/currency_list_actions.dart';
 import 'package:redux/redux.dart';
 
 class CurrencyListViewModel{
-
   final String currency;
   final List<String> cryptos;
   final List<ExchangeRate> rates;
@@ -14,7 +13,6 @@ class CurrencyListViewModel{
   final String backendError;
   final bool localDataReady;
   final bool reload;
-
   final Function (bool) toggleLocalDataReady;
   final Function cleanBackendError;
   final Function (LoadingStatus) changeLoading;
@@ -42,7 +40,8 @@ class CurrencyListViewModel{
     this.restart,
   });
 
-  static CurrencyListViewModel fromStore(Store<AppState> store) => CurrencyListViewModel(
+  static CurrencyListViewModel fromStore(Store<AppState> store) =>
+      CurrencyListViewModel(
     currency: store.state.currencyListState.currency,
     cryptos: store.state.currencyListState.cryptos,
     rates: store.state.currencyListState.rates,
@@ -51,8 +50,10 @@ class CurrencyListViewModel{
     localDataReady: store.state.currencyListState.localDataReady,
     reload: store.state.currencyListState.reload,
     
-    toggleLocalDataReady: (ready) => store.dispatch(new SetLocalDataReadyAction(ready)),
-    requestRates: (showLoading, cryptos, currency) => store.dispatch(new FetchCryptoListAction(cryptos, currency, showLoading)),
+    toggleLocalDataReady: (ready) =>
+        store.dispatch(new SetLocalDataReadyAction(ready)),
+    requestRates: (showLoading, cryptos, currency) =>
+        store.dispatch(new FetchCryptoListAction(cryptos, currency, showLoading)),
     navigateToSettings: () => store.dispatch(new NavigateToSettingsAction()),
     setReload: (reload) => store.dispatch(new ReloadCurrenciesAction(reload)),
     restart: () => store.dispatch(new GetCurrentCurrencyAction()),

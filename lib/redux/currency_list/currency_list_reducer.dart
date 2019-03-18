@@ -17,7 +17,8 @@ final currencyListReducer = combineReducers<CurrencyListState>([
 
 ]);
 
-CurrencyListState _backendErrorAction(CurrencyListState state, ShowBackendErrorAction action) {
+CurrencyListState _backendErrorAction(CurrencyListState state,
+    ShowBackendErrorAction action) {
   if(action.screen == Screen.CURRENCY_LIST){
     return state.copyWith(backendError: action.error);
   }else{
@@ -25,10 +26,12 @@ CurrencyListState _backendErrorAction(CurrencyListState state, ShowBackendErrorA
   }
 }
 
-CurrencyListState _hideBackendErrorAction(CurrencyListState state, HideBackendErrorAction action) =>
+CurrencyListState _hideBackendErrorAction(CurrencyListState state,
+    HideBackendErrorAction action) =>
     state.copyWith(backendError: "");
 
-CurrencyListState _changeLoadingStatusAction(CurrencyListState state, ChangeLoadingStatusAction action){
+CurrencyListState _changeLoadingStatusAction(CurrencyListState state,
+    ChangeLoadingStatusAction action){
   if(action.screen == Screen.CURRENCY_LIST){
     return state.copyWith(status: action.status);
   } else return state;
